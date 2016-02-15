@@ -12,30 +12,36 @@ if(arrancar==1)
         R=-1*d1*tan((90-alfa)*pi/180);
         vLineal=(vAngular*pi/180)*radio; 
         Vs=vAngular;
-        vLineal=(vLineal*cosd(alfa));
-        %alfaa=(vAngular*pi/180)*alfa
-        
-        % Cambio de orientacion del robot 
-        phii=((vLineal*180/pi)/d1)*sind(alfa)
-        
+        vLineal=(vLineal*cosd(alfa));        
+                
         if alfa>0, vAngular=vAngular*pi/180; elseif(alfa<0),vAngular=-1*(vAngular*pi/180); elseif(alfa==0),vAngular=0;  end
-        %phi=vAngular*180/pi
+       % Cambio de orientacion del robot 
+        phii=((vLineal*180/pi)/d1)*sind(alfa);
+        phi=vAngular*180/pi;
         
         punto(1)= punto(1)+ vLineal*cosd(alfa+adelanteAtras);
         punto(2)= punto(2)+ vLineal*sind(alfa+adelanteAtras);
-        if(phi==0),vAngular=Vs;else vAngular=Vs; end
+
+        %alfa=(vAngular*pi/180)*alfa
         
+        pRotacion=[R punto(2)];
+        rotar=[punto(1) punto(2)];        
         
+        vAngular=Vs;       
+%         punto(1)=pRotacion(1)+(rotar(1)-pRotacion(1))*cosd(phii) - (rotar(2)-pRotacion(2))*sind(phii);
+%         punto(2)=pRotacion(2)+(rotar(1)-pRotacion(1))*sind(phii) - (rotar(2)-pRotacion(2))*cosd(phii);        
+%         
+        %if(phi==0),vAngular=Vs;else vAngular=Vs; end
+
 end
+
 % centro de Ejes
-punto
 plot(punto(1),punto(2),'ro','LineWidth',3)
 
 pllanta1A=punto*llanta1A; pllanta1B=punto*llanta1B;
 pllanta2A=punto*llanta2A; pllanta2B=punto*llanta2B;
 pllanta3A=punto*llanta3A; pllanta3B=punto*llanta3B;
 
-% girar phi grados el punto CCI
 
 centroLl1X=(pllanta1A(1)+pllanta1B(1))/2; centroLl1Y=(pllanta1A(2)+pllanta1B(2))/2;  % centro de llanta1
 centroLl2X=(pllanta2A(1)+pllanta2B(1))/2; centroLl2Y=(pllanta2A(2)+pllanta2B(2))/2;  % centro de llanta2

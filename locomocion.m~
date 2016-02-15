@@ -8,6 +8,9 @@ d1=4;  d2=6; radio=1;  % radio de la llanta delantera
 R=0;
 if reversa==1, adelanteAtras=-90;else adelanteAtras=+90; end
 
+
+
+
 if(arrancar==1)
         R=-1*d1*tan((90-alfa)*pi/180);
         vLineal=(vAngular*pi/180)*radio; 
@@ -16,64 +19,55 @@ if(arrancar==1)
         %alfaa=(vAngular*pi/180)*alfa
         
         % Cambio de orientacion del robot 
-        %phi=((vLineal*180/pi)/d1)*sind(alfa)
+        phii=((vLineal*180/pi)/d1)*sind(alfa);
         
         if alfa>0, vAngular=vAngular*pi/180; elseif(alfa<0),vAngular=-1*(vAngular*pi/180); elseif(alfa==0),vAngular=0;  end
-        phi=vAngular*180/pi
+       phi=vAngular*180/pi;
         
-        punto(1)= punto(1)+ vLineal*cosd(phi+adelanteAtras);
-        punto(2)= punto(2)+ vLineal*sind(phi+adelanteAtras);
-        if(phi==0),vAngular=Vs;else vAngular=Vs; end
+        punto(1)= punto(1)+ vLineal*cosd(alfa+adelanteAtras);
+        punto(2)= punto(2)+ vLineal*sind(alfa+adelanteAtras);
         
+        pRotacion=[]
         
+        punto
+        
+        %if(phi==0),vAngular=Vs;else vAngular=Vs; end
+        vAngular=Vs;
+%         pllanta1A(1)=pllanta1A(1)+vLineal*cosd(phii);        pllanta1A(2)=pllanta1A(2)+vLineal*sind(phii);
+%         pllanta1B(1)=pllanta1B(1)+vLineal*cosd(phii);        pllanta1B(2)=pllanta1B(2)+vLineal*sind(phii);
+%         pllanta2A(1)=pllanta2A(1)+vLineal*cosd(phii);        pllanta2A(2)=pllanta2A(2)+vLineal*sind(phii);
+%         pllanta2B(1)=pllanta2B(1)+vLineal*cosd(phii);        pllanta2B(2)=pllanta2B(2)+vLineal*sind(phii);
+%         pllanta3A(1)=pllanta3A(1)+vLineal*cosd(phii);        pllanta3A(2)=pllanta3A(2)+vLineal*sind(phii);
+%         pllanta3B(1)=pllanta3B(1)+vLineal*cosd(phii);        pllanta3B(2)=pllanta3B(2)+vLineal*sind(phii);
+        
+
 end
+
 % centro de Ejes
-plot(punto(1),punto(2),'ro','LineWidth',5)
+plot(punto(1),punto(2),'ro','LineWidth',3)
 
 pllanta1A=punto*llanta1A; pllanta1B=punto*llanta1B;
 pllanta2A=punto*llanta2A; pllanta2B=punto*llanta2B;
 pllanta3A=punto*llanta3A; pllanta3B=punto*llanta3B;
 
-% girar phi grados el punto CCI
-CCIX=punto(1)+R; CCIY=punto(2);
 
-RLL1XA=CCIX+(pllanta1A(1)-CCIX)*cosd(phi)-(pllanta1A(2)-CCIY)*sind(phi);
-RLL1YA=CCIY+(pllanta1A(1)-CCIX)*sind(phi)+(pllanta1A(2)-CCIY)*cosd(phi);
-RLL1XB=CCIX+(pllanta1B(1)-CCIX)*cosd(phi)-(pllanta1B(2)-CCIY)*sind(phi);
-RLL1YB=CCIY+(pllanta1B(1)-CCIX)*sind(phi)+(pllanta1B(2)-CCIY)*cosd(phi);
-%line([RLL1XA RLL1XB],[RLL1YA RLL1YB],'color','g','LineWidth',10); hold on
-
-RLL2XA=CCIX+(pllanta2A(1)-CCIX)*cosd(phi)-(pllanta2A(2)-CCIY)*sind(phi);
-RLL2YA=CCIY+(pllanta2A(1)-CCIX)*sind(phi)+(pllanta2A(2)-CCIY)*cosd(phi);
-RLL2XB=CCIX+(pllanta2B(1)-CCIX)*cosd(phi)-(pllanta2B(2)-CCIY)*sind(phi);
-RLL2YB=CCIY+(pllanta2B(1)-CCIX)*sind(phi)+(pllanta2B(2)-CCIY)*cosd(phi);
-%line([RLL2XA RLL2XB],[RLL2YA RLL2YB],'color','g','LineWidth',10); hold on
-
-RLL3XA=CCIX+(pllanta3A(1)-CCIX)*cosd(phi)-(pllanta3A(2)-CCIY)*sind(phi);
-RLL3YA=CCIY+(pllanta3A(1)-CCIX)*sind(phi)+(pllanta3A(2)-CCIY)*cosd(phi);
-RLL3XB=CCIX+(pllanta3B(1)-CCIX)*cosd(phi)-(pllanta3B(2)-CCIY)*sind(phi);
-RLL3YB=CCIY+(pllanta3B(1)-CCIX)*sind(phi)+(pllanta3B(2)-CCIY)*cosd(phi);
-%line([RLL3XA RLL3XB],[RLL3YA RLL3YB],'color','g','LineWidth',10); hold on
-
-
-
-centroLl1X=(RLL1XA+RLL1XB)/2; centroLl1Y=(RLL1YA+RLL1YB)/2;  % centro de llanta1
-centroLl2X=(RLL2XA+RLL2XB)/2; centroLl2Y=(RLL2YA+RLL2YB)/2;  % centro de llanta2
-centroLl3X=(RLL3XA+RLL3XB)/2; centroLl3Y=(RLL3XB+RLL3YB)/2;  % centro de llanta3
+centroLl1X=(pllanta1A(1)+pllanta1B(1))/2; centroLl1Y=(pllanta1A(2)+pllanta1B(2))/2;  % centro de llanta1
+centroLl2X=(pllanta2A(1)+pllanta2B(1))/2; centroLl2Y=(pllanta2A(2)+pllanta2B(2))/2;  % centro de llanta2
+centroLl3X=(pllanta3A(1)+pllanta3B(1))/2; centroLl3Y=(pllanta3A(2)+pllanta3B(2))/2;  % centro de llanta3
 
 % Rotacion de parte A de la llanta delantera
-x1=RLL3XA; y1=RLL3YA;
+x1=pllanta3A(1); y1=pllanta3A(2);
 Nx1=centroLl3X+(x1-centroLl3X)*cosd(alfa)-(y1-centroLl3Y)*sind(alfa);  Ny1=centroLl3Y+(x1-centroLl3X)*sind(alfa)+(y1-centroLl3Y)*cosd(alfa);
 % Rotacion de parte B de la llanta
-x2=RLL3XB; y2=RLL3YB;
+x2=pllanta3B(1); y2=pllanta3B(2);
 Nx2=centroLl3X+(x2-centroLl3X)*cosd(alfa)-(y2-centroLl3Y)*sind(alfa);  Ny2=centroLl3Y+(x2-centroLl3X)*sind(alfa)+(y2-centroLl3Y)*cosd(alfa);
 
 % centro de Ejes
 plot(punto(1),punto(2),'ro','LineWidth',5)
 
 % Grafica llantas
-line([RLL1XA RLL1XB],[RLL1YA RLL1XB],'color','black','LineWidth',10); hold on
-line([RLL2XA RLL2XA],[RLL2YA pllanta2B(2)],'color','black','LineWidth',10); hold on
+line([pllanta1A(1) pllanta1B(1)],[pllanta1A(2) pllanta1B(2)],'color','black','LineWidth',10); hold on
+line([pllanta2A(1) pllanta2B(1)],[pllanta2A(2) pllanta2B(2)],'color','black','LineWidth',10); hold on
 line([Nx1 Nx2],[Ny1 Ny2],'color','red','LineWidth',10); hold on
 % Graficar ejes
 line([centroLl1X centroLl2X],[centroLl1Y centroLl2Y],'color','black','LineWidth',4); hold on
