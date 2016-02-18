@@ -4,28 +4,27 @@ global vAngular vLineal reversa
 hold off
 
 % otros datos
-d1=4;  d2=6; radio=1;  % radio de la llanta delantera 
+d1=4;  d2=6; radio=1;  % radio de la llanta delantera
 R=0;
 if reversa==1, adelanteAtras=-90;else adelanteAtras=+90; end
 
 if(arrancar==1)
         R=-1*d1*tan((90-alfa)*pi/180);
-        vLineal=(vAngular*pi/180)*radio; 
+        vLineal=(vAngular*pi/180)*radio;
         Vs=vAngular;
-        vLineal=(vLineal*cosd(alfa));        
+        vLineal=(vLineal*cosd(alfa));
                 
         if alfa>0, vAngular=vAngular*pi/180; elseif(alfa<0),vAngular=-1*(vAngular*pi/180); elseif(alfa==0),vAngular=0;  end
        % Cambio de orientacion del robot 
-        phii=((vLineal*180/pi)/d1)*sind(alfa);
+        phii=((vLineal*180/pi)/d1)*sind(alfa)
         phi=vAngular*180/pi;
         
         punto(1)= punto(1)+ vLineal*cosd(alfa+adelanteAtras);
         punto(2)= punto(2)+ vLineal*sind(alfa+adelanteAtras);
 
         %alfa=(vAngular*pi/180)*alfa
-        
-        pRotacion=[R punto(2)];
-        rotar=[punto(1) punto(2)];        
+        pRotacion=[R punto(2)]
+        rotar=[punto(1) punto(2)]        
         
         vAngular=Vs;       
 %         punto(1)=pRotacion(1)+(rotar(1)-pRotacion(1))*cosd(phii) - (rotar(2)-pRotacion(2))*sind(phii);

@@ -125,3 +125,23 @@ end
 % --- Executes on button press in checkbox1.
 function checkbox1_Callback(hObject, eventdata, handles)
 %Reversa
+
+
+% --- Executes during object creation, after setting all properties.
+function axes1_CreateFcn(hObject, eventdata, handles)
+%% funcion para capturar valores de las teclas
+f=gcf;
+
+val=double(get(f,'CurrentCharacter')) % compare the values to the list
+% below:
+if (val==28)
+    disp('leftArrow');
+elseif(val==29)
+    disp('rightArrow');
+elseif(val==30)
+    disp('upArrow');
+elseif(val==31)
+    disp('downArrow');
+end
+
+
