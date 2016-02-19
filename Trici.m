@@ -35,7 +35,6 @@ global triciclo alfa vAngular vLineal phi ICC theta;
 f=gcf;
 
 val=double(get(f,'CurrentCharacter'));
-% below:
 if (val==28)
     %disp('leftArrow');
     %% alfa derecha

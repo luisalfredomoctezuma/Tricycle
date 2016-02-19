@@ -16,7 +16,6 @@ for i=1:100
              triciclo(2,j)=triciclo(2,j)+vLineal*cosd(theta);
          end
      else
-         if alfa<0,phi=phi*-1;end
             for jj=1:3
                 punto=[triciclo(1,jj)-CCI(1);
                        triciclo(2,jj)-CCI(2);
