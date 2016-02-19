@@ -47,27 +47,27 @@ if (val==28)
     end
 elseif(val==29)
     %disp('rightArrow');
-   alfa=alfa+(45/5);
+   alfa=alfa+(45/4);
     if alfa<=80
         TriciLoco;
     else
-        alfa=alfa-(45/5);
+        alfa=alfa-(45/4);
     end
 elseif(val==30)
     %disp('upArrow');
-	vAngular=vAngular+(45/3);
+	vAngular=vAngular+(45/2);
     if vAngular<=90
         TriciLoco;
     else
-        vAngular=vAngular-(45/3);
+        vAngular=vAngular-(45/2);
     end
 elseif(val==31)
 	%disp('downArrow');
-    vAngular=vAngular-(45/3);
+    vAngular=vAngular-(45/2);
     if (vAngular>=0)  
         TriciLoco;
     else
-        vAngular=vAngular+(45/3);
+        vAngular=vAngular+(45/2);
     end
 elseif(val==8)
     alfa=0; vAngular=0;  vLineal=0; phi=0; theta=0; ICC=[0 0];

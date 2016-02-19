@@ -1,9 +1,9 @@
-function varargout = Trici(varargin)
+function varargout = Tri(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @Trici_OpeningFcn, ...
-                   'gui_OutputFcn',  @Trici_OutputFcn, ...
+                   'gui_OpeningFcn', @Tri_OpeningFcn, ...
+                   'gui_OutputFcn',  @Tri_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -15,23 +15,28 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
-function Trici_OpeningFcn(hObject, eventdata, handles, varargin)
+function Tri_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 %% principal
-global triciclo alfa vAngular vLineal phi ICC theta;
-alfa=0; vAngular=0;  vLineal=0; phi=0; theta=0; ICC=[0 0];
-triciclo=[-3 0 3;
-           1 6 1;
-           0 0 0];
-TriciLoco;
+global alfa vAngular vLineal phi ICC P Pnew;
+alfa=0; vAngular=0;  vLineal=0; phi=0; ICC=[0 0];
+
+   P=[0;4;0];
+Pnew=[0;4;0];
+
+
+TriLoco;
 set(gcf,'toolbar','figure')
+% Update handles structure
 guidata(hObject, handles);
-function varargout = Trici_OutputFcn(hObject, eventdata, handles) 
+
+function varargout = Tri_OutputFcn(hObject, eventdata, handles) 
 varargout{1} = handles.output;
-function axes1_CreateFcn(hObject, eventdata, handles)
+
+
 function figure1_WindowKeyPressFcn(hObject, eventdata, handles)
 %% control
-global triciclo alfa vAngular vLineal phi ICC theta;
+global alfa vAngular vLineal ICC P Pnew;
 f=gcf;
 
 val=double(get(f,'CurrentCharacter'));
@@ -39,40 +44,41 @@ val=double(get(f,'CurrentCharacter'));
 if (val==28)
     %disp('leftArrow');
     %% alfa derecha
-    alfa=alfa-(45/5);
+    alfa=alfa-11.25;
     if (alfa>=-80)  
-        TriciLoco;
+        TriLoco;
     else
-        alfa=alfa+(45/5);
+        alfa=alfa+11.25;
     end
 elseif(val==29)
     %disp('rightArrow');
-   alfa=alfa+(45/5);
+   alfa=alfa+11.25;
     if alfa<=80
-        TriciLoco;
+        TriLoco;
     else
-        alfa=alfa-(45/5);
+        alfa=alfa-11.25;
     end
 elseif(val==30)
     %disp('upArrow');
-	vAngular=vAngular+(45/3);
+	vAngular=vAngular+(45/2);
     if vAngular<=90
-        TriciLoco;
+        TriLoco;
     else
-        vAngular=vAngular-(45/3);
+        vAngular=vAngular-(45/2);
     end
 elseif(val==31)
 	%disp('downArrow');
-    vAngular=vAngular-(45/3);
+    vAngular=vAngular-(45/2);
     if (vAngular>=0)  
-        TriciLoco;
+        TriLoco;
     else
-        vAngular=vAngular+(45/3);
+        vAngular=vAngular+(45/2);
     end
 elseif(val==8)
-    alfa=0; vAngular=0;  vLineal=0; phi=0; theta=0; ICC=[0 0];
-    triciclo=[-3 0 3;
-               1 6 1;
-               0 0 1];
-    TriciLoco;
+    alfa=0; vAngular=0;  vLineal=0; ICC=[0 0];
+       
+       P=[0;4;0];
+	Pnew=[0;4;0];
+
+    TriLoco;
 end
