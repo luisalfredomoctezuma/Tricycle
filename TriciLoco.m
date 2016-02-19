@@ -1,5 +1,5 @@
-global triciclo alfa vAngular vLineal phi P theta;
-for i=1:100
+global triciclo alfa vAngular vLineal phi P theta tiempo;
+for i=1:tiempo
     hold off
     % otros datos
     d1=5; radio=1;
@@ -8,8 +8,7 @@ for i=1:100
     vLineal=(vAngular*pi/180)*radio;
     vLineal=(vLineal*cosd(alfa));
     phi=(atan((vAngular*pi/180)/sqrt(d1^2+R^2)))*180/pi;
-    CCI=[(P(1)+R*cosd(theta)) , (P(2)-R*sind(theta)) ];
-    
+    CCI=[(P(1)+R*cosd(theta)) , (P(2)-R*sind(theta)) ];    
      if(R>1000000)
          for j=1:3
              triciclo(1,j)=triciclo(1,j)+vLineal*sind(theta);
@@ -20,10 +19,10 @@ for i=1:100
             for jj=1:3
                 punto=[triciclo(1,jj)-CCI(1);
                        triciclo(2,jj)-CCI(2);
-                       theta];
+                       0];
                 ICCmas=[CCI(1);
                         CCI(2);
-                        phi];
+                        0];
                 mRot=[cosd(phi)   sind(phi)   0;
                       -sind(phi)  cosd(phi)   0;
                       0                0    1]; 
@@ -35,9 +34,9 @@ for i=1:100
             triciclo=tempo;
             theta=theta+phi;
             if(theta>=360),theta=theta-360;end
+            if(theta<-360),theta=theta+360;end
      end
-    P=[(triciclo(1,1)+triciclo(1,3))/2, (triciclo(2,1)+triciclo(2,3))/2];  % centro del vehiculo, es el centro de las dos llantas   
-
+    P=[(triciclo(1,1)+triciclo(1,3))/2, (triciclo(2,1)+triciclo(2,3))/2];  % centro del vehiculo, para actualizar en el mismo tiempo
     for k=1:3
         plot(triciclo(1,k),triciclo(2,k),'ro','LineWidth',5), hold on
     end
