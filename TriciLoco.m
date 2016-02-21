@@ -6,7 +6,6 @@ for i=1:tiempo
     R=d1*tan((90-alfa)*pi/180);
     P=[(triciclo(1,1)+triciclo(1,3))/2, (triciclo(2,1)+triciclo(2,3))/2];  % centro del vehiculo
     vLineal=(vAngular*pi/180)*radio;
-    vLineal=(vLineal*cosd(alfa));
     phi=(atan((vAngular*pi/180)/sqrt(d1^2+R^2)))*180/pi;
     CCI=[(P(1)+R*cosd(theta)) , (P(2)-R*sind(theta)) ];    
      if(R>1000000)

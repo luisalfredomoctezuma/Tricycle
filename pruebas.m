@@ -92,13 +92,13 @@ clear,clc
 %     xlabel('x'); ylabel('y');
 %     title('Triciclo');axis([-20 20 -20 20]),grid on
 
-punto=[7-4;
-       6-3;
+punto=[4-6;
+       3-1;
         0];
- ICCmas=[4;
-         3;
+ ICCmas=[6;
+         1;
          0];
- mRot=[cosd(-.5863)    sind(-0.5863)   0;
-       -sind(-0.5863)  cosd(-0.5863)   0;
+ mRot=[cosd(15.51)    sind(15.51)   0;
+       -sind(15.51)  cosd(15.51)   0;
        0               0               1]; 
  nx=mRot*punto+ICCmas
