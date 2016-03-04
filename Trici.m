@@ -266,11 +266,11 @@ elseif simuDiferencial==1
                       LlantaD(2)-4 , LlantaD(2)+20;
                       0           , 0];                    
 
-           mRot1=[cosd(-45)   sind(-45)   0;
-                          -sind(-45)  cosd(-45)   0;
+           mRot1=[cosd(-75)   sind(-75)   0;
+                          -sind(-75)  cosd(-75)   0;
                           0                0    0];               
-           mRot2=[cosd(45)   sind(45)   0;
-                  -sind(45)  cosd(45)   0;
+           mRot2=[cosd(75)   sind(75)   0;
+                  -sind(75)  cosd(75)   0;
                   0                0    0];
             sensorA =mRot1*sensorA   +[LlantaD(1) LlantaD(1);LlantaD(2) LlantaD(2);0 0];         
             sensorAA=mRot1*sensorAA +[LlantaD(1) LlantaD(1);LlantaD(2) LlantaD(2);0 0];

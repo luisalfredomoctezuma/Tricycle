@@ -7,13 +7,13 @@ d1=5;
 recta2=0;
 d2=sqrt( (Meta(1)-LlantaDelantera(1))^2 + (Meta(2)-LlantaDelantera(2))^2 );
 d3=sqrt( (Meta(1)-P(1))^2 + (Meta(2)-P(2))^2 );
-beta=(acos( (d2^2-d1^2-d3^2)/(-2*d1*d3) )*180/pi)+theta;
+beta=(acos( (d2^2-d1^2-d3^2)/(-2*d1*d3) )*180/pi)+theta
 error=1.2;
-error2=6.5;
+error2=8.5;
 if recta2==0
     while theta >= beta-error || theta<=beta+error
         if (theta >=beta-error && theta<=beta+error),tiempo=0;disp('Alineado2'),recta2=1;  break; end
-        vAngular=20;
+        vAngular=15;
         alfa=beta*-1;
         tiempo=1;
         buscaInterseccion;
