@@ -6,7 +6,7 @@ global PuntoM;
 P=[(triciclo(1,1)+triciclo(1,3))/2, (triciclo(2,1)+triciclo(2,3))/2];  % centro del vehiculo
 Meta(1)=str2double(get(handles.edit1,'String')); Meta(2)=str2double(get(handles.edit2,'String'));
 LlantaDelantera=[triciclo(1,2),triciclo(2,2)];
-d1=5; error=1.2;   SeEncontroObs=0; circunnavegar=0; recta=0;   conta=0; conta2=0;
+d1=5; error=0.8;   SeEncontroObs=0; circunnavegar=0; recta=0;   conta=0; conta2=0;
 
 d2=sqrt( (Meta(1)-LlantaDelantera(1))^2 + (Meta(2)-LlantaDelantera(2))^2 );
 d3=sqrt( (Meta(1)-P(1))^2 + (Meta(2)-P(2))^2 );
@@ -15,6 +15,7 @@ beta=acos( (d2^2-d1^2-d3^2)/(-2*d1*d3) )*180/pi;
 
 RdistanciaAmeta=0; distanciaAmeta=100000000; % la distancia inicial a la meta la inicio en infinito y se mejora en cada iteracion
 PuntoM=[triciclo(1,2) triciclo(2,2)]; % punto guardado de lo cerca que estaba del objetivo
+PuntoMR=PuntoM;
 
 if(Meta(1)<0),beta=beta*-1;end
 
@@ -33,7 +34,7 @@ end
 % navegar de r a g hasta que r==g o se encuentre un obstaculo
 if recta==1
     while (LlantaDelantera(1) ~= Meta(1) && LlantaDelantera(2)~=Meta(2))
-        vAngular=90;
+        vAngular=45;
         alfa=0;
         tiempo=1;
         LlantaDelantera=[triciclo(1,2),triciclo(2,2)];
@@ -52,25 +53,34 @@ if recta==1
                 conta=conta+1;
                 if conta>=7
                     if (DO2SL(1)>12 && DO2SLL(1)>12)&&(DO2SL(2)>12 && DO2SLL(2)>12)&&(DO2SL(3)>12 && DO2SLL(3)>12)&&(DO2SL(4)>12  && DO2SLL(4)>12)
-                        if (DO2SA(1)<20 && DO2SAA(1)<20)&&(DO2SA(2)<20 && DO2SAA(2)<20)&&(DO2SA(3)<20&& DO2SAA(3)<20)&&(DO2SA(4)<20&& DO2SAA(4)<15)
-                            %disp('ReAlinea')
-                            tiempo=1;
+                        if (DO2SA(1)<20 && DO2SAA(1)<20)&&(DO2SA(2)<20 && DO2SAA(2)<20)&&(DO2SA(3)<20&& DO2SAA(3)<20)&&(DO2SA(4)<20&& DO2SAA(4)<15)                            
+                            tiempo=1; %disp('ReAlinea')
                             alfa=85;
                             buscaInterseccion;
                             RdistanciaAmeta=sqrt((Meta(1)-PuntoM(1))^2 +(Meta(2)-PuntoM(2))^2 );
                             distanciaAmeta=sqrt((Meta(1)-triciclo(1,2))^2 +(Meta(2)-triciclo(2,2))^2 );
                             if(distanciaAmeta<RdistanciaAmeta)
-                                PuntoM=[triciclo(1,2) triciclo(2,2)];
+                                PuntoM=[triciclo(1,2) triciclo(2,2)]; 
+                            conta2=conta2+1;                                
+                            end
+                            PuntoMR=[triciclo(1,2) triciclo(2,2)];                            
+                            if (PuntoMR(1)>=(PuntoM(1)-0.6) && PuntoMR(1)<=(PuntoM(1)+0.6)) && (PuntoMR(2)>=(PuntoM(2)-0.6) && PuntoMR(2)<=(PuntoM(2)+0.6))
+                            	disp('Llego al puntoM')
                             end
                             TriciLoco;
-                        end                      
+                        end
+                        
                         tiempo=1;
                         alfa=-85;
                         buscaInterseccion;
                         RdistanciaAmeta=sqrt((Meta(1)-PuntoM(1))^2 +(Meta(2)-PuntoM(2))^2 );
                         distanciaAmeta=sqrt((Meta(1)-triciclo(1,2))^2 +(Meta(2)-triciclo(2,2))^2 );
                         if(distanciaAmeta<RdistanciaAmeta)
-                            PuntoM=[triciclo(1,2) triciclo(2,2)];
+                            PuntoM=[triciclo(1,2) triciclo(2,2)];                           
+                        end
+                       	PuntoMR=[triciclo(1,2) triciclo(2,2)]; 
+                        if (PuntoMR(1)>=(PuntoM(1)-0.6) && PuntoMR(1)<=(PuntoM(1)+0.6)) && (PuntoMR(2)>=(PuntoM(2)-0.6) && PuntoMR(2)<=(PuntoM(2)+0.6))
+                        	disp('Llego al puntoM')
                         end
                         TriciLoco;
                     end
@@ -79,21 +89,21 @@ if recta==1
                 distanciaAmeta=sqrt((Meta(1)-triciclo(1,2))^2 +(Meta(2)-triciclo(2,2))^2 );
                 if(distanciaAmeta<RdistanciaAmeta)
                 	PuntoM=[triciclo(1,2) triciclo(2,2)];
-                end                
-                vAngular=90;   % avanzar en linea recta
+                end
+              	PuntoMR=[triciclo(1,2) triciclo(2,2)]; 
+                vAngular=45;   % avanzar en linea recta
                 alfa=0;
                 TriciLoco;
+                if (PuntoMR(1)>=(PuntoM(1)-error) && PuntoMR(1)<=(PuntoM(1)+error)) && (PuntoMR(2)>=(PuntoM(2)-error) && PuntoMR(2)<=(PuntoM(2)+error))
+                	disp('Llego al puntoM')
+                end                                
             end
-           
         end
     end
 end
 
-
-
-
         
-        
+
 
 % Cuando alla llegado al puntoM dos veces, alinear nuevamente y viajar en
 % recta hacia el objetivo
