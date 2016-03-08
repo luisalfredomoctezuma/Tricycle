@@ -19,7 +19,7 @@ PuntoM=[0 0];
 % diferencial
 global vAngularL vLinealL phiL vAngularR vLinealR phiR;
 vAngularL=0;  vLinealL=0; phiL=0;
-vAngularR=0;  vLinealR=0; phiR=0; 
+vAngularR=0;  vLinealR=0; phiR=0;
 
 simuDiferencial=0;
 titulo='Triciclo';
@@ -228,7 +228,7 @@ elseif simuDiferencial==1
         vAngularR=0;  vLinealR=0; phiR=0;
         titulo='Triciclo';
         alfa=0; vAngular=0;  vLineal=0; phi=0; theta=0; ICC=[0 0]; tiempo=1; 
-        ruta=0; contador=0; navegar=0;
+        ruta=0; contador=0; navegar=0; simuDiferencial=0;
         triciclo=[-3 0 3;
                    0 5 0;
                    0 0 1];
